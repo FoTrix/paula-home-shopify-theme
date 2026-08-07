@@ -1,0 +1,61 @@
+{% schema %}
+{
+  "name": "Retiro en Tienda",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Título",
+      "default": "Compra online, retira gratis."
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Descripción",
+      "default": "Elige retiro en tienda al pagar y te avisamos cuando tu pedido esté listo. Sin costo de despacho."
+    },
+    {
+      "type": "text",
+      "id": "cta_text",
+      "label": "Texto CTA",
+      "default": "Cómo funciona"
+    },
+    {
+      "type": "url",
+      "id": "cta_url",
+      "label": "URL CTA"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Imagen tienda"
+    }
+  ]
+}
+{% endschema %}
+
+<section class="pickup-teaser">
+  <div class="container">
+    <div class="pickup-teaser__grid">
+      <div class="pickup-teaser__content">
+        <span class="pickup-teaser__badge">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          Retiro en tienda
+        </span>
+        <h2 class="pickup-teaser__title">{{ section.settings.title }}</h2>
+        <p class="pickup-teaser__description">{{ section.settings.description }}</p>
+        <a href="{{ section.settings.cta_url | default: '/pages/retiro' }}" class="pickup-teaser__cta">
+          {{ section.settings.cta_text }}
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+      </div>
+      <div class="pickup-teaser__image">
+        {% if section.settings.image %}
+          <img src="{{ section.settings.image | image_url: width: 600 }}" alt="Tienda Paula Home" loading="lazy" width="600" height="260">
+        {% else %}
+          <img src="{{ 'store-pickup.png' | asset_url }}" alt="Tienda Paula Home" loading="lazy" width="600" height="260">
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
