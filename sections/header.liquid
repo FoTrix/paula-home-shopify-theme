@@ -1,0 +1,98 @@
+{% schema %}
+{
+  "name": "Header",
+  "settings": [
+    {
+      "type": "text",
+      "id": "announcement_text",
+      "label": "Texto anuncio superior",
+      "default": "Retiro en tienda · Despacho Blue Express a todo Chile"
+    },
+    {
+      "type": "text",
+      "id": "phone",
+      "label": "Teléfono",
+      "default": "+56 9 0000 0000"
+    }
+  ]
+}
+{% endschema %}
+
+<header class="header" data-header>
+  <!-- Top announcement bar -->
+  <div class="header__top-bar">
+    <div class="header__top-bar-inner">
+      <span>{{ section.settings.announcement_text }}</span>
+      <span style="display: flex; align-items: center; gap: 16px;">
+        <a href="tel:{{ section.settings.phone | remove: ' ' }}" style="display: flex; align-items: center; gap: 6px;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          {{ section.settings.phone }}
+        </a>
+        <span>Pago seguro con Webpay</span>
+      </span>
+    </div>
+  </div>
+
+  <!-- Main header bar -->
+  <div class="header__main">
+    <!-- Mobile menu toggle -->
+    <button class="header__mobile-toggle" data-mobile-toggle aria-label="Menú">
+      <svg class="header__menu-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      <svg class="header__close-icon" style="display:none;" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+
+    <!-- Logo -->
+    <a href="{{ routes.root_url }}" class="header__logo">
+      <span class="header__logo-title">{{ shop.name }}</span>
+      <span class="header__logo-subtitle">Grifería · Sanitarios</span>
+    </a>
+
+    <!-- Desktop navigation -->
+    <nav class="header__nav">
+      <a href="{{ routes.collections_url }}" class="header__nav-link">Catálogo</a>
+      <a href="/collections/monomandos" class="header__nav-link">Grifería</a>
+      <a href="/collections/tinas-y-receptaculos-de-ducha" class="header__nav-link">Baño</a>
+      <a href="/collections/saldos-ofertas" class="header__nav-link header__nav-link--sale">Ofertas</a>
+      <a href="/pages/retiro" class="header__nav-link">Retiro en tienda</a>
+    </nav>
+
+    <!-- Search -->
+    <div class="header__search" data-search>
+      <form action="{{ routes.search_url }}" method="get" role="search">
+        <svg class="header__search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input
+          type="text"
+          name="q"
+          class="header__search-input"
+          placeholder="Buscar productos o SKU…"
+          autocomplete="off"
+          data-search-input
+        >
+      </form>
+      <div class="header__search-results" data-search-results></div>
+    </div>
+
+    <!-- Cart button -->
+    <button class="header__cart-btn" data-cart-open aria-label="Carrito">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+      <span class="header__cart-count" data-cart-count style="display:none;">0</span>
+    </button>
+  </div>
+
+  <!-- Mobile navigation -->
+  <nav class="header__mobile-nav" data-mobile-nav>
+    <div class="header__mobile-search">
+      <form action="{{ routes.search_url }}" method="get">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input type="text" name="q" placeholder="Buscar…" style="padding-left: 40px;">
+      </form>
+    </div>
+    <div class="header__mobile-links">
+      <a href="{{ routes.collections_url }}">Catálogo</a>
+      <a href="/collections/monomandos">Grifería</a>
+      <a href="/collections/tinas-y-receptaculos-de-ducha">Baño</a>
+      <a href="/collections/saldos-ofertas">Ofertas</a>
+      <a href="/pages/retiro">Retiro en tienda</a>
+    </div>
+  </nav>
+</header>
