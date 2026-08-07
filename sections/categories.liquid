@@ -1,0 +1,60 @@
+{% schema %}
+{
+  "name": "Categorías",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Título",
+      "default": "Compra por categoría"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtítulo",
+      "default": "Todo lo que necesitas, bien organizado."
+    },
+    {
+      "type": "collection_list",
+      "id": "categories",
+      "label": "Categorías a mostrar",
+      "limit": 12
+    }
+  ]
+}
+{% endschema %}
+
+<section class="categories">
+  <div class="container">
+    <div class="categories__header">
+      <div>
+        <h2 class="categories__title">{{ section.settings.title }}</h2>
+        <p class="categories__subtitle">{{ section.settings.subtitle }}</p>
+      </div>
+      <a href="{{ routes.collections_url }}" class="categories__view-all">
+        Ver todo
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+    </div>
+
+    <div class="categories__grid">
+      {% for collection in section.settings.categories %}
+        {% render 'category-icon',
+          icon: collection.metafields.custom.icon,
+          name: collection.title,
+          count: collection.products_count,
+          url: collection.url
+        %}
+      {% else %}
+        {% for collection in collections limit: 8 %}
+          {% render 'category-icon',
+            icon: collection.metafields.custom.icon,
+            name: collection.title,
+            count: collection.products_count,
+            url: collection.url
+          %}
+        {% endfor %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
