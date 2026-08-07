@@ -1,0 +1,79 @@
+{% schema %}
+{
+  "name": "Banner Ofertas",
+  "settings": [
+    {
+      "type": "text",
+      "id": "badge",
+      "label": "Etiqueta",
+      "default": "Saldos y ofertas"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Título",
+      "default": "Renueva tu baño por menos."
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Descripción",
+      "default": "Descuentos reales en grifería, tinas y accesorios seleccionados."
+    },
+    {
+      "type": "text",
+      "id": "cta_text",
+      "label": "Texto CTA",
+      "default": "Ver ofertas"
+    },
+    {
+      "type": "url",
+      "id": "cta_url",
+      "label": "URL CTA"
+    },
+    {
+      "type": "image_picker",
+      "id": "banner_image",
+      "label": "Imagen banner"
+    }
+  ]
+}
+{% endschema %}
+
+<section class="offers-banner">
+  <div class="container">
+    <div class="offers-banner__inner">
+      {% if section.settings.banner_image %}
+        <img
+          src="{{ section.settings.banner_image | image_url: width: 1200 }}"
+          alt="{{ section.settings.title }}"
+          class="offers-banner__image"
+          loading="lazy"
+          width="1200"
+          height="380"
+        >
+      {% else %}
+        <img
+          src="{{ 'hero-offers.png' | asset_url }}"
+          alt="{{ section.settings.title }}"
+          class="offers-banner__image"
+          loading="lazy"
+          width="1200"
+          height="380"
+        >
+      {% endif %}
+
+      <div class="offers-banner__overlay"></div>
+
+      <div class="offers-banner__content">
+        <span class="offers-badge">{{ section.settings.badge }}</span>
+        <h2 class="offers-banner__title">{{ section.settings.title }}</h2>
+        <p class="offers-banner__description">{{ section.settings.description }}</p>
+        <a href="{{ section.settings.cta_url | default: '/collections/saldos-ofertas' }}" class="offers-banner__cta">
+          {{ section.settings.cta_text }}
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
