@@ -1,0 +1,100 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "current": {
+    "sections": {
+      "header": {
+        "type": "header",
+        "settings": {
+          "announcement_text": "Retiro en tienda · Despacho Blue Express a todo Chile",
+          "phone": "+56 9 0000 0000"
+        }
+      },
+      "hero": {
+        "type": "hero",
+        "settings": {
+          "badge": "Línea Täumm · Chile",
+          "title": "Grifería y baño con carácter.",
+          "title_highlight": "con carácter.",
+          "description": "Monomandos, tinas, shower y accesorios para renovar tu hogar. Calidad garantizada, retiro en tienda y despacho a todo Chile.",
+          "cta_primary_text": "Explorar catálogo",
+          "cta_primary_url": "",
+          "cta_secondary_text": "Ver ofertas",
+          "cta_secondary_url": "",
+          "hero_image": "shopify://shop_images/hero-main.png"
+        }
+      },
+      "trust-bar": {
+        "type": "trust-bar",
+        "settings": {
+          "badge_1_title": "Webpay",
+          "badge_1_subtitle": "Pago 100% seguro",
+          "badge_2_title": "Blue Express",
+          "badge_2_subtitle": "Despacho a todo Chile",
+          "badge_3_title": "Retiro en tienda",
+          "badge_3_subtitle": "Gratis y coordinado",
+          "badge_4_title": "Garantía Täumm",
+          "badge_4_subtitle": "Respaldo de marca"
+        }
+      },
+      "categories": {
+        "type": "categories",
+        "settings": {
+          "title": "Compra por categoría",
+          "subtitle": "Todo lo que necesitas, bien organizado.",
+          "categories": []
+        }
+      },
+      "featured-products": {
+        "type": "featured-products",
+        "settings": {
+          "title": "Destacados",
+          "subtitle": "Selección de nuestro catálogo.",
+          "collection": "",
+          "products_limit": 8
+        }
+      },
+      "offers-banner": {
+        "type": "offers-banner",
+        "settings": {
+          "badge": "Saldos y ofertas",
+          "title": "Renueva tu baño por menos.",
+          "description": "Descuentos reales en grifería, tinas y accesorios seleccionados.",
+          "cta_text": "Ver ofertas",
+          "cta_url": "",
+          "banner_image": "shopify://shop_images/hero-offers.png"
+        }
+      },
+      "pickup-teaser": {
+        "type": "pickup-teaser",
+        "settings": {
+          "title": "Compra online, retira gratis.",
+          "description": "Elige retiro en tienda al pagar y te avisamos cuando tu pedido esté listo. Sin costo de despacho.",
+          "cta_text": "Cómo funciona",
+          "cta_url": "",
+          "image": "shopify://shop_images/store-pickup.png"
+        }
+      },
+      "footer": {
+        "type": "footer",
+        "settings": {
+          "phone": "+56 9 0000 0000",
+          "email": "ventas@paulahome.cl",
+          "address": "Región del Biobío, Chile"
+        }
+      },
+      "cart-drawer": {
+        "type": "cart-drawer",
+        "settings": {}
+      }
+    },
+    "content_for_index": []
+  }
+}
