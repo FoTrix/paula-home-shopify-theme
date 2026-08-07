@@ -1,0 +1,37 @@
+{
+  "general": {
+    "search": {
+      "placeholder": "Buscar productos o SKU…",
+      "submit": "Buscar",
+      "no_results": "Sin resultados para \"{{ terms }}\"."
+    },
+    "cart": {
+      "title": "Tu carrito",
+      "empty": "Tu carrito está vacío.",
+      "subtotal": "Subtotal",
+      "checkout": "Pagar con Webpay",
+      "continue_shopping": "Seguir comprando",
+      "note": "Despacho e impuestos calculados al finalizar la compra."
+    },
+    "navigation": {
+      "menu": "Menú",
+      "close": "Cerrar",
+      "catalog": "Catálogo",
+      "plumbing": "Grifería",
+      "bathroom": "Baño",
+      "offers": "Ofertas",
+      "pickup": "Retiro en tienda"
+    },
+    "products": {
+      "add_to_cart": "Agregar al carrito",
+      "sku": "SKU {{ sku }}",
+      "sale": "Oferta",
+      "products_count": "{{ count }} productos",
+      "view_all": "Ver todo"
+    },
+    "accessibility": {
+      "cart": "Carrito",
+      "menu": "Menú"
+    }
+  }
+}
