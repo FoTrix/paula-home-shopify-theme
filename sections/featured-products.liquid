@@ -1,0 +1,63 @@
+{% schema %}
+{
+  "name": "Productos Destacados",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Título",
+      "default": "Destacados"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtítulo",
+      "default": "Selección de nuestro catálogo."
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Colección"
+    },
+    {
+      "type": "range",
+      "id": "products_limit",
+      "label": "Número de productos",
+      "min": 4,
+      "max": 12,
+      "step": 1,
+      "default": 8
+    }
+  ]
+}
+{% endschema %}
+
+<section class="featured-products">
+  <div class="container">
+    <div class="featured-products__header">
+      <div>
+        <h2 class="featured-products__title">{{ section.settings.title }}</h2>
+        <p class="featured-products__subtitle">{{ section.settings.subtitle }}</p>
+      </div>
+      <a href="{{ routes.collections_url }}" class="featured-products__view-all">
+        Ver todo
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+    </div>
+
+    <div class="featured-products__grid">
+      {% assign featured_collection = collections[section.settings.collection] %}
+      {% if featured_collection and featured_collection.products.size > 0 %}
+        {% for product in featured_collection.products limit: section.settings.products_limit %}
+          {% render 'product-card', product: product %}
+        {% endfor %}
+      {% else %}
+        {% comment %}Fallback: mostrar primeros productos de todas las colecciones{% endcomment %}
+        {% assign all_shop_products = collections.all.products %}
+        {% for product in all_shop_products limit: section.settings.products_limit %}
+          {% render 'product-card', product: product %}
+        {% endfor %}
+      {% endif %}
+    </div>
+  </div>
+</section>
