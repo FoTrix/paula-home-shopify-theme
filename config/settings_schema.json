@@ -1,0 +1,77 @@
+[
+  {
+    "name": "Colores",
+    "settings": [
+      {
+        "type": "color",
+        "id": "color_cream",
+        "label": "Fondo crema",
+        "default": "#F6F1EA"
+      },
+      {
+        "type": "color",
+        "id": "color_sand",
+        "label": "Fondo arena",
+        "default": "#EDE4D8"
+      },
+      {
+        "type": "color",
+        "id": "color_ink",
+        "label": "Texto principal",
+        "default": "#241E19"
+      },
+      {
+        "type": "color",
+        "id": "color_clay",
+        "label": "Acento terracotta",
+        "default": "#8A5A44"
+      },
+      {
+        "type": "color",
+        "id": "color_sale",
+        "label": "Oferta",
+        "default": "#B5462F"
+      }
+    ]
+  },
+  {
+    "name": "Redes Sociales",
+    "settings": [
+      {
+        "type": "text",
+        "id": "social_instagram",
+        "label": "Instagram URL",
+        "info": "https://instagram.com/tu_usuario"
+      },
+      {
+        "type": "text",
+        "id": "social_facebook",
+        "label": "Facebook URL",
+        "info": "https://facebook.com/tu_pagina"
+      }
+    ]
+  },
+  {
+    "name": "Información de la tienda",
+    "settings": [
+      {
+        "type": "text",
+        "id": "store_phone",
+        "label": "Teléfono de contacto",
+        "default": "+56 9 0000 0000"
+      },
+      {
+        "type": "text",
+        "id": "store_email",
+        "label": "Email de contacto",
+        "default": "ventas@paulahome.cl"
+      },
+      {
+        "type": "text",
+        "id": "store_address",
+        "label": "Dirección de la tienda",
+        "default": "Región del Biobío, Chile"
+      }
+    ]
+  }
+]
