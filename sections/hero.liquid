@@ -68,7 +68,7 @@
       </h1>
       <p class="hero__description">{{ section.settings.description }}</p>
       <div class="hero__actions">
-        <a href="{{ section.settings.cta_primary_url | default: routes.collections_url }}" class="hero__cta-primary">
+        <a href="{{ section.settings.cta_primary_url | default: routes.all_products_collection_url }}" class="hero__cta-primary">
           {{ section.settings.cta_primary_text }}
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
         </a>

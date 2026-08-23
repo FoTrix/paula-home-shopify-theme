@@ -27,7 +27,7 @@
       Categorías
     </p>
     <ul class="listing__cats">
-      <li><a href="{{ routes.collections_url }}" class="listing__cat {% if collection.handle == 'all' %}listing__cat--active{% endif %}">Todos</a></li>
+      <li><a href="{{ routes.all_products_collection_url }}" class="listing__cat {% if collection.handle == 'all' %}listing__cat--active{% endif %}">Todos</a></li>
       {% for c in collections %}
         {% if c.products_count > 0 or c.title == collection.title %}
           <li>
@@ -88,7 +88,7 @@
       {% else %}
         <div class="listing__empty">
           <p>No encontramos productos.</p>
-          <a href="{{ routes.collections_url }}" class="btn-primary">Ver todo el catálogo</a>
+          <a href="{{ routes.all_products_collection_url }}" class="btn-primary">Ver todo el catálogo</a>
         </div>
       {% endif %}
     {% endpaginate %}
