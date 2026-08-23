@@ -2,8 +2,9 @@
 {% assign sku = product.variants.first.sku %}
 {% assign cat_collection = product.collections.first %}
 
+{% assign tone_seed = sku | default: product.title %}
 {% assign tone_index = 0 %}
-{% for char in sku | default: product.title %}
+{% for char in tone_seed %}
   {% assign tone_index = tone_index | plus: 1 %}
 {% endfor %}
 {% assign tone_mod = tone_index | modulo: 4 %}
