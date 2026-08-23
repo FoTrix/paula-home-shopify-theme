@@ -1,0 +1,97 @@
+{% comment %} Plantilla de producto — réplica de la ficha React {% endcomment %}
+{% assign sku = product.variants.first.sku %}
+{% assign cat_collection = product.collections.first %}
+
+{% assign tone_index = 0 %}
+{% for char in sku | default: product.title %}
+  {% assign tone_index = tone_index | plus: 1 %}
+{% endfor %}
+{% assign tone_mod = tone_index | modulo: 4 %}
+{% case tone_mod %}
+  {% when 0 %}{% assign gradient_from = '#efe7db' %}{% assign gradient_to = '#e3d5c4' %}
+  {% when 1 %}{% assign gradient_from = '#eee6dc' %}{% assign gradient_to = '#ddcdb9' %}
+  {% when 2 %}{% assign gradient_from = '#f0ece4' %}{% assign gradient_to = '#e0d3c2' %}
+  {% when 3 %}{% assign gradient_from = '#ece3d6' %}{% assign gradient_to = '#d9c8b4' %}
+{% endcase %}
+
+<div class="container product-page">
+  <nav class="breadcrumb">
+    <a href="{{ routes.root_url }}">Inicio</a>
+    <span>/</span>
+    {% if cat_collection %}<a href="{{ cat_collection.url }}">{{ cat_collection.title }}</a><span>/</span>{% endif %}
+    <span class="breadcrumb__current">{{ product.title }}</span>
+  </nav>
+
+  <div class="product-page__grid">
+    <div class="product-page__visual" style="background: linear-gradient(135deg, {{ gradient_from }}, {{ gradient_to }});">
+      <span class="product-page__visual-icon">{% render 'category-icon', icon: 'Package' %}</span>
+    </div>
+
+    <div class="product-page__info">
+      {% if cat_collection %}<a href="{{ cat_collection.url }}" class="product-page__category">{{ cat_collection.title }}</a>{% endif %}
+      <h1 class="product-page__title">{{ product.title }}</h1>
+      {% if sku %}<p class="product-page__sku">SKU {{ sku }}</p>{% endif %}
+
+      <p class="product-page__price">{{ product.price | money }}</p>
+      <p class="product-page__tax">Precio con IVA incluido.</p>
+
+      <p class="product-page__desc">
+        {{ product.title }} de la línea Täumm. Producto de calidad para tu proyecto de baño o cocina.
+        Consulta disponibilidad y ficha técnica completa en tienda.
+        {{ product.description }}
+      </p>
+
+      {% if product.available %}
+        <form action="{{ routes.cart_add_url }}" method="post" class="product-page__buy">
+          <input type="hidden" name="id" value="{{ product.variants.first.id }}">
+          <div class="qty-picker">
+            <button type="button" class="qty-picker__btn" data-qty-minus aria-label="Menos">&minus;</button>
+            <input type="number" name="quantity" value="1" min="1" class="qty-picker__input" data-qty-input>
+            <button type="button" class="qty-picker__btn" data-qty-plus aria-label="Más">+</button>
+          </div>
+          <button type="button" class="btn-primary btn-primary--wide" data-add-to-cart data-variant-id="{{ product.variants.first.id }}" data-qty-source="[data-qty-input]">
+            Agregar al carrito
+          </button>
+        </form>
+      {% else %}
+        <p class="product-page__soldout">Sin stock — consulta disponibilidad en tienda.</p>
+      {% endif %}
+
+      <div class="product-page__trust">
+        <div class="product-page__trust-item"><span>Despacho Blue Express a todo Chile</span></div>
+        <div class="product-page__trust-item"><span>Retiro gratis en tienda</span></div>
+        <div class="product-page__trust-item"><span>Garantía y respaldo Täumm</span></div>
+      </div>
+
+      <div class="product-page__secure">Pago seguro con Webpay</div>
+    </div>
+  </div>
+
+  {% if cat_collection and cat_collection.products_count > 1 %}
+    <section class="product-page__related">
+      <h2>También te puede interesar</h2>
+      <div class="featured-products__grid">
+        {%- assign shown = 0 -%}
+        {% for related in cat_collection.products limit: 8 %}
+          {% if related.id != product.id and shown < 4 %}
+            {%- assign shown = shown | plus: 1 -%}
+            {% render 'product-card', product: related %}
+          {% endif %}
+        {% endfor %}
+      </div>
+    </section>
+  {% endif %}
+</div>
+
+<script>
+  document.querySelectorAll('[data-qty-minus], [data-qty-plus]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var input = document.querySelector('[data-qty-input]');
+      if (!input) return;
+      var delta = btn.hasAttribute('data-qty-plus') ? 1 : -1;
+      input.value = Math.max(1, (parseInt(input.value, 10) || 1) + delta);
+      var addBtn = document.querySelector('[data-add-to-cart]');
+      if (addBtn) addBtn.dataset.qty = input.value;
+    });
+  });
+</script>

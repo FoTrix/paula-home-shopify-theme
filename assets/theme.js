@@ -50,8 +50,11 @@
         btn.addEventListener('click', (e) => {
           e.preventDefault();
           const variantId = btn.dataset.variantId;
+          const qtySource = btn.dataset.qtySource ? document.querySelector(btn.dataset.qtySource) : null;
+          let qty = parseInt(btn.dataset.qty || (qtySource && qtySource.value) || 1, 10);
+          if (isNaN(qty) || qty < 1) qty = 1;
           if (variantId) {
-            this.addItem(variantId);
+            this.addItem(variantId, qty);
           }
         });
       });

@@ -1,0 +1,13 @@
+{% comment %}
+  Página genérica. Si la página es "retiro", renderiza la réplica de
+  la página Retiro en tienda del proyecto React.
+{% endcomment %}
+
+{% if page.handle == 'retiro' %}
+  {% render 'page-retiro' %}
+{% else %}
+  <div class="container generic-page">
+    <h1>{{ page.title }}</h1>
+    <div class="generic-page__content rte">{{ page.content }}</div>
+  </div>
+{% endif %}

@@ -1,0 +1,72 @@
+{% comment %}
+  page-retiro.liquid — Réplica de la página "Retiro en tienda" del proyecto React.
+{% endcomment %}
+
+{% assign lat = -37.474506 %}
+{% assign lon = -73.344812 %}
+
+<section class="collection-hero">
+  <div class="container">
+    <nav class="breadcrumb">
+      <a href="{{ routes.root_url }}">Inicio</a>
+      <span>/</span>
+      <span class="breadcrumb__current">Retiro en tienda</span>
+    </nav>
+    <h1 class="pickup-hero__title">Compra online y retira gratis en tienda</h1>
+    <p class="pickup-hero__subtitle">Ahorra el costo de despacho. Prepara tu pedido y retíralo cuando te avisemos que está listo.</p>
+  </div>
+</section>
+
+<section class="container pickup-steps">
+  <div class="pickup-steps__grid">
+    <div class="pickup-steps__card">
+      <span class="pickup-steps__icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg>
+      </span>
+      <p class="pickup-steps__label">Paso 1</p>
+      <h3 class="pickup-steps__title">Compra online</h3>
+      <p class="pickup-steps__desc">Agrega productos y elige &ldquo;Retiro en tienda&rdquo; al pagar.</p>
+    </div>
+    <div class="pickup-steps__card">
+      <span class="pickup-steps__icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      </span>
+      <p class="pickup-steps__label">Paso 2</p>
+      <h3 class="pickup-steps__title">Te avisamos</h3>
+      <p class="pickup-steps__desc">Preparamos tu pedido y te notificamos cuando esté listo.</p>
+    </div>
+    <div class="pickup-steps__card">
+      <span class="pickup-steps__icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="16.5" y1="9.4" x2="7.5" y2="4.21"/><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+      </span>
+      <p class="pickup-steps__label">Paso 3</p>
+      <h3 class="pickup-steps__title">Retira gratis</h3>
+      <p class="pickup-steps__desc">Acércate a la tienda con tu número de pedido. Sin costo.</p>
+    </div>
+  </div>
+</section>
+
+<section class="container pickup-map">
+  <div class="pickup-map__card">
+    <iframe
+      title="Ubicación tienda Paula Home"
+      src="https://www.openstreetmap.org/export/embed.html?bbox={{ lon | minus: 0.01 }}%2C{{ lat | minus: 0.01 }}%2C{{ lon | plus: 0.01 }}%2C{{ lat | plus: 0.01 }}&layer=mapnik&marker={{ lat }}%2C{{ lon }}"
+      loading="lazy"
+    ></iframe>
+    <div class="pickup-map__info">
+      <h2>Nuestra tienda</h2>
+      <ul>
+        <li>
+          <div><p class="pickup-map__label">Dirección</p><p>Región del Biobío, Chile</p><p>Coordenadas: {{ lat }}, {{ lon }}</p></div>
+        </li>
+        <li>
+          <div><p class="pickup-map__label">Horario</p><p>Lun a Vie · 09:00 – 18:30</p><p>Sábado · 10:00 – 14:00</p></div>
+        </li>
+        <li>
+          <div><p class="pickup-map__label">Teléfono</p><p>+56 9 0000 0000</p></div>
+        </li>
+      </ul>
+      <a href="https://www.google.com/maps/dir/?api=1&destination={{ lat }},{{ lon }}" target="_blank" rel="noreferrer" class="btn-primary">Cómo llegar</a>
+    </div>
+  </div>
+</section>

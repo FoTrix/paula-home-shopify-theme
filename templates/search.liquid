@@ -1,0 +1,46 @@
+{% comment %} Resultados de búsqueda — mismo layout que catálogo {% endcomment %}
+<section class="collection-hero">
+  <div class="container">
+    <nav class="breadcrumb">
+      <a href="{{ routes.root_url }}">Inicio</a>
+      <span>/</span>
+      <span class="breadcrumb__current">Búsqueda</span>
+    </nav>
+    <div class="collection-hero__row">
+      <div>
+        <h1 class="collection-hero__title">Resultados para &ldquo;{{ search.terms | escape }}&rdquo;</h1>
+        <p class="collection-hero__count">{{ search.results_count }} productos</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="container listing">
+  <div class="listing__results listing__results--full">
+    {% if search.performed %}
+      {% paginate search.results by 24 %}
+        {% if search.results_count > 0 %}
+          <div class="featured-products__grid listing__grid">
+            {% for item in search.results %}
+              {% if item.object_type == 'product' %}
+                {% render 'product-card', product: item %}
+              {% endif %}
+            {% endfor %}
+          </div>
+          {% if paginate.pages > 1 %}
+            <div class="pagination">
+              {% if paginate.previous %}<a href="{{ paginate.previous.url }}" class="pagination__btn">&lsaquo;</a>{% endif %}
+              <span class="pagination__label">Página {{ paginate.current_page }} de {{ paginate.pages }}</span>
+              {% if paginate.next %}<a href="{{ paginate.next.url }}" class="pagination__btn">&rsaquo;</a>{% endif %}
+            </div>
+          {% endif %}
+        {% else %}
+          <div class="listing__empty">
+            <p>No encontramos productos para &ldquo;{{ search.terms | escape }}&rdquo;.</p>
+            <a href="{{ routes.collections_url }}" class="btn-primary">Ver todo el catálogo</a>
+          </div>
+        {% endif %}
+      {% endpaginate %}
+    {% endif %}
+  </div>
+</div>

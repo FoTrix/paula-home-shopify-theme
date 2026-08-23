@@ -1,0 +1,96 @@
+{% comment %} Plantilla de colección — réplica del catálogo React {% endcomment %}
+{% assign current_sort = collection.sort_by | default: collection.default_sort_by %}
+
+<section class="collection-hero">
+  <div class="container">
+    <nav class="breadcrumb">
+      <a href="{{ routes.root_url }}">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        Inicio
+      </a>
+      <span>/</span>
+      <span class="breadcrumb__current">{{ collection.title }}</span>
+    </nav>
+    <div class="collection-hero__row">
+      <div>
+        <h1 class="collection-hero__title">{{ collection.title }}</h1>
+        <p class="collection-hero__count">{{ collection.products_count }} productos</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="container listing">
+  <aside class="listing__sidebar">
+    <p class="listing__sidebar-title">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="21" y1="4" x2="14" y2="4"/><line x1="10" y1="4" x2="3" y2="4"/><line x1="21" y1="12" x2="12" y2="12"/><line x1="8" y1="12" x2="3" y2="12"/><line x1="21" y1="20" x2="18" y2="20"/><line x1="14" y1="20" x2="3" y2="20"/><line x1="14" y1="2" x2="14" y2="6"/><line x1="8" y1="10" x2="8" y2="14"/><line x1="16" y1="18" x2="16" y2="22"/></svg>
+      Categorías
+    </p>
+    <ul class="listing__cats">
+      <li><a href="{{ routes.collections_url }}" class="listing__cat {% if collection.handle == 'all' %}listing__cat--active{% endif %}">Todos</a></li>
+      {% for c in collections %}
+        {% if c.products_count > 0 or c.title == collection.title %}
+          <li>
+            <a href="{{ c.url }}" class="listing__cat {% if c.handle == collection.handle %}listing__cat--active{% endif %}">
+              <span>{{ c.title }}</span>
+              <span class="listing__cat-count">{{ c.products_count }}</span>
+            </a>
+          </li>
+        {% endif %}
+      {% endfor %}
+    </ul>
+  </aside>
+
+  <div class="listing__results">
+    <div class="listing__toolbar">
+      <label class="listing__sort">
+        <span>Ordenar:</span>
+        <select onchange="window.location.href = window.location.pathname + '?sort_by=' + this.value">
+          <option value="" {% if current_sort == 'best-selling' or current_sort == 'manual' or current_sort == blank %}selected{% endif %}>Relevancia</option>
+          <option value="price-ascending" {% if current_sort == 'price-ascending' %}selected{% endif %}>Precio: menor a mayor</option>
+          <option value="price-descending" {% if current_sort == 'price-descending' %}selected{% endif %}>Precio: mayor a menor</option>
+          <option value="title-ascending" {% if current_sort == 'title-ascending' %}selected{% endif %}>Nombre A–Z</option>
+        </select>
+      </label>
+    </div>
+
+    {% paginate collection.products by 24 %}
+      {% if collection.products.size > 0 %}
+        <div class="featured-products__grid listing__grid">
+          {% for product in collection.products %}
+            {% render 'product-card', product: product %}
+          {% endfor %}
+        </div>
+
+        {% if paginate.pages > 1 %}
+          <div class="pagination">
+            {% if paginate.previous %}
+              <a href="{{ paginate.previous.url }}" class="pagination__btn" aria-label="Anterior">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+              </a>
+            {% else %}
+              <span class="pagination__btn pagination__btn--disabled">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+              </span>
+            {% endif %}
+            <span class="pagination__label">Página {{ paginate.current_page }} de {{ paginate.pages }}</span>
+            {% if paginate.next %}
+              <a href="{{ paginate.next.url }}" class="pagination__btn" aria-label="Siguiente">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+              </a>
+            {% else %}
+              <span class="pagination__btn pagination__btn--disabled">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+              </span>
+            {% endif %}
+          </div>
+        {% endif %}
+      {% else %}
+        <div class="listing__empty">
+          <p>No encontramos productos.</p>
+          <a href="{{ routes.collections_url }}" class="btn-primary">Ver todo el catálogo</a>
+        </div>
+      {% endif %}
+    {% endpaginate %}
+  </div>
+</div>

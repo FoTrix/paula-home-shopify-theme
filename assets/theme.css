@@ -1599,3 +1599,101 @@ ul, ol {
 .cart-drawer__continue:hover {
   color: var(--ink);
 }
+
+/* === Breadcrumb === */
+.breadcrumb { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--muted); margin-bottom: 12px; flex-wrap: wrap; }
+.breadcrumb a { color: var(--muted); text-decoration: none; }
+.breadcrumb a:hover { color: var(--clay); }
+.breadcrumb__current { color: var(--ink); }
+
+/* === Collection hero band === */
+.collection-hero { background: rgba(237, 228, 216, 0.6); border-bottom: 1px solid var(--line); }
+.collection-hero .container { padding-top: 32px; padding-bottom: 32px; }
+.collection-hero__row { display: flex; align-items: center; gap: 16px; }
+.collection-hero__title { font-family: var(--font-display); font-size: clamp(26px, 3.5vw, 36px); font-weight: 600; color: var(--ink); }
+.collection-hero__count { margin-top: 2px; font-size: 14px; color: var(--muted); }
+
+/* === Listing (catálogo) === */
+.listing { display: grid; gap: 32px; padding-top: 40px; padding-bottom: 56px; }
+.listing__sidebar { display: none; }
+.listing__sidebar-title { display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 600; color: var(--ink); margin-bottom: 12px; }
+.listing__cats { list-style: none; }
+.listing__cat { display: flex; align-items: center; justify-content: space-between; border-radius: 8px; padding: 8px 12px; font-size: 14px; color: var(--muted); text-decoration: none; transition: background 0.15s ease; }
+.listing__cat:hover { background: var(--sand); }
+.listing__cat--active { background: var(--sand); color: var(--ink); font-weight: 500; }
+.listing__cat-count { font-size: 12px; color: var(--muted); margin-left: 8px; }
+.listing__toolbar { display: flex; justify-content: flex-end; margin-bottom: 24px; }
+.listing__sort { display: flex; align-items: center; gap: 8px; font-size: 14px; }
+.listing__sort span { color: var(--muted); }
+.listing__sort select { border: 1px solid var(--line); background: var(--card); border-radius: 8px; padding: 8px 12px; font-size: 14px; color: var(--ink); outline: none; }
+.listing__sort select:focus { border-color: var(--clay); }
+.listing__empty { border: 1px solid var(--line); background: var(--card); border-radius: 16px; text-align: center; padding: 80px 24px; color: var(--muted); }
+@media (min-width: 1024px) {
+  .listing { grid-template-columns: 220px 1fr; }
+  .listing__sidebar { display: block; }
+}
+
+/* === Pagination === */
+.pagination { display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 48px; }
+.pagination__btn { width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border: 1px solid var(--line); border-radius: 50%; background: var(--card); color: var(--ink); text-decoration: none; font-size: 18px; }
+.pagination__btn:hover { border-color: var(--clay); }
+.pagination__btn--disabled { opacity: 0.4; pointer-events: none; }
+.pagination__label { padding: 0 16px; font-size: 14px; color: var(--muted); }
+
+/* === Botón primario === */
+.btn-primary { display: inline-flex; align-items: center; justify-content: center; gap: 8px; background: var(--ink); color: #f6f1ea; border: none; border-radius: 999px; padding: 12px 24px; font-size: 14px; font-weight: 500; font-family: var(--font-body); cursor: pointer; text-decoration: none; transition: background 0.2s ease; }
+.btn-primary:hover { background: var(--clay-dark); }
+
+/* === Página de producto === */
+.product-page { padding-top: 32px; padding-bottom: 40px; }
+.product-page__grid { display: grid; gap: 40px; margin-bottom: 48px; }
+@media (min-width: 768px) { .product-page__grid { grid-template-columns: 1fr 1fr; } }
+.product-page__visual { aspect-ratio: 1; border: 1px solid var(--line); border-radius: 16px; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+.product-page__visual-icon { width: 112px; height: 112px; color: var(--clay); opacity: 0.85; }
+.product-page__visual-icon svg { width: 100%; height: 100%; stroke-width: 1.25; }
+.product-page__category { font-size: 12px; font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase; color: var(--clay); text-decoration: none; }
+.product-page__title { font-family: var(--font-display); font-size: clamp(28px, 4vw, 38px); font-weight: 600; line-height: 1.15; color: var(--ink); margin-top: 8px; }
+.product-page__sku { margin-top: 8px; font-size: 13px; color: var(--muted); }
+.product-page__price { font-family: var(--font-display); font-size: 30px; font-weight: 600; color: var(--ink); margin-top: 20px; }
+.product-page__tax { margin-top: 4px; font-size: 12px; color: var(--muted); }
+.product-page__desc { margin-top: 24px; max-width: 448px; line-height: 1.7; color: var(--muted); }
+.product-page__buy { display: flex; align-items: center; gap: 16px; margin-top: 32px; flex-wrap: wrap; }
+.btn-primary--wide { flex: 1; min-width: 200px; padding-block: 14px; }
+.qty-picker { display: flex; align-items: center; border: 1px solid var(--line); background: var(--card); border-radius: 999px; overflow: hidden; }
+.qty-picker__btn { width: 44px; height: 44px; border: none; background: transparent; font-size: 18px; color: var(--ink); cursor: pointer; }
+.qty-picker__btn:hover { color: var(--clay); }
+.qty-picker__input { width: 40px; text-align: center; border: none; outline: none; font-size: 15px; font-weight: 500; color: var(--ink); background: transparent; -moz-appearance: textfield; }
+.qty-picker__input::-webkit-inner-spin-button, .qty-picker__input::-webkit-outer-spin-button { -webkit-appearance: none; }
+.product-page__soldout { margin-top: 32px; padding: 14px 20px; border: 1px solid var(--line); border-radius: 12px; background: var(--sand); color: var(--muted); font-size: 14px; }
+.product-page__trust { margin-top: 32px; display: grid; gap: 12px; border: 1px solid var(--line); background: var(--card); border-radius: 16px; padding: 20px; font-size: 14px; }
+.product-page__trust-item { display: flex; align-items: center; gap: 12px; color: var(--ink); }
+.product-page__secure { margin-top: 16px; display: flex; align-items: center; gap: 8px; font-size: 14px; color: var(--muted); }
+.product-page__related { margin-top: 64px; }
+.product-page__related h2 { font-family: var(--font-display); font-size: 24px; font-weight: 600; color: var(--ink); margin-bottom: 24px; }
+
+/* === Retiro en tienda === */
+.pickup-hero__title { max-width: 560px; font-family: var(--font-display); font-size: clamp(28px, 4vw, 38px); font-weight: 600; line-height: 1.15; color: var(--ink); }
+.pickup-hero__subtitle { max-width: 480px; margin-top: 12px; color: var(--muted); }
+.pickup-steps { padding-top: 56px; padding-bottom: 56px; }
+.pickup-steps__grid { display: grid; gap: 24px; }
+@media (min-width: 768px) { .pickup-steps__grid { grid-template-columns: repeat(3, 1fr); } }
+.pickup-steps__card { border: 1px solid var(--line); background: var(--card); border-radius: 16px; padding: 24px; }
+.pickup-steps__icon { width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; border-radius: 12px; background: var(--sand); color: var(--clay); }
+.pickup-steps__label { margin-top: 16px; font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
+.pickup-steps__title { font-family: var(--font-display); font-size: 20px; font-weight: 600; color: var(--ink); margin-top: 4px; }
+.pickup-steps__desc { margin-top: 8px; font-size: 14px; line-height: 1.6; color: var(--muted); }
+.pickup-map { padding-bottom: 80px; }
+.pickup-map__card { display: grid; overflow: hidden; border: 1px solid var(--line); border-radius: 24px; background: var(--card); }
+@media (min-width: 1024px) { .pickup-map__card { grid-template-columns: 1fr 1fr; } }
+.pickup-map__card iframe { width: 100%; min-height: 360px; border: 0; display: block; }
+.pickup-map__info { padding: 40px; }
+.pickup-map__info h2 { font-family: var(--font-display); font-size: 24px; font-weight: 600; color: var(--ink); }
+.pickup-map__info ul { list-style: none; display: grid; gap: 20px; margin: 24px 0 32px; font-size: 14px; }
+.pickup-map__info li { display: flex; gap: 12px; }
+.pickup-map__label { font-weight: 500; color: var(--ink); }
+.pickup-map__info p { color: var(--muted); }
+
+/* === Página genérica === */
+.generic-page { padding-top: 40px; padding-bottom: 80px; }
+.generic-page h1 { font-family: var(--font-display); font-size: 34px; font-weight: 600; color: var(--ink); }
+.generic-page__content { margin-top: 24px; line-height: 1.7; color: var(--muted); }
