@@ -1,5 +1,7 @@
 {% comment %} Plantilla de colección — réplica del catálogo React {% endcomment %}
 {% assign current_sort = collection.sort_by | default: collection.default_sort_by %}
+{% assign listing_title = collection.title %}
+{% if collection.handle == 'all' %}{% assign listing_title = 'Catálogo completo' %}{% endif %}
 
 <section class="collection-hero">
   <div class="container">
@@ -9,11 +11,11 @@
         Inicio
       </a>
       <span>/</span>
-      <span class="breadcrumb__current">{{ collection.title }}</span>
+      <span class="breadcrumb__current">{{ listing_title }}</span>
     </nav>
     <div class="collection-hero__row">
       <div>
-        <h1 class="collection-hero__title">{{ collection.title }}</h1>
+        <h1 class="collection-hero__title">{{ listing_title }}</h1>
         <p class="collection-hero__count">{{ collection.products_count }} productos</p>
       </div>
     </div>
