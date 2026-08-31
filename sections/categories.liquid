@@ -4,6 +4,12 @@
   "settings": [
     {
       "type": "text",
+      "id": "eyebrow",
+      "label": "Etiqueta",
+      "default": "Categorías"
+    },
+    {
+      "type": "text",
       "id": "title",
       "label": "Título",
       "default": "Compra por categoría"
@@ -28,6 +34,7 @@
   <div class="container">
     <div class="categories__header">
       <div>
+        <span class="categories__eyebrow">{{ section.settings.eyebrow }}</span>
         <h2 class="categories__title">{{ section.settings.title }}</h2>
         <p class="categories__subtitle">{{ section.settings.subtitle }}</p>
       </div>
@@ -43,7 +50,8 @@
           icon: collection.metafields.custom.icon,
           name: collection.title,
           count: collection.products_count,
-          url: collection.url
+          url: collection.url,
+          delay: forloop.index0 | times: 60
         %}
       {% else %}
         {% for collection in collections limit: 8 %}
@@ -51,7 +59,8 @@
             icon: collection.metafields.custom.icon,
             name: collection.title,
             count: collection.products_count,
-            url: collection.url
+            url: collection.url,
+            delay: forloop.index0 | times: 60
           %}
         {% endfor %}
       {% endfor %}
