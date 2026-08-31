@@ -30,15 +30,35 @@
 
   <div class="product-page__grid">
     <div class="product-page__visual" style="background: linear-gradient(135deg, {{ gradient_from }}, {{ gradient_to }});">
-      {% if product.featured_image %}
-        <img
-          src="{{ product.featured_image | image_url: width: 800 }}"
-          alt="{{ product.featured_image.alt | default: product.title | escape }}"
-          class="product-page__image"
-          loading="lazy"
-          width="{{ product.featured_image.width }}"
-          height="{{ product.featured_image.height }}"
-        >
+      {% if product.images.size > 0 %}
+        <div class="product-carousel" data-carousel>
+          <div class="product-carousel__track" data-carousel-track>
+            {% for image in product.images %}
+              <div class="product-carousel__slide">
+                <img
+                  src="{{ image | image_url: width: 800 }}"
+                  alt="{{ image.alt | default: product.title | escape }}"
+                  loading="{% if forloop.first %}eager{% else %}lazy{% endif %}"
+                  width="{{ image.width }}"
+                  height="{{ image.height }}"
+                >
+              </div>
+            {% endfor %}
+          </div>
+          {% if product.images.size > 1 %}
+            <button type="button" class="product-carousel__btn product-carousel__btn--prev" data-carousel-prev aria-label="Anterior">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+            </button>
+            <button type="button" class="product-carousel__btn product-carousel__btn--next" data-carousel-next aria-label="Siguiente">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+            </button>
+            <div class="product-carousel__dots" data-carousel-dots>
+              {% for image in product.images %}
+                <button type="button" class="product-carousel__dot{% if forloop.first %} product-carousel__dot--active{% endif %}" data-carousel-dot="{{ forloop.index0 }}" aria-label="Imagen {{ forloop.index }}"></button>
+              {% endfor %}
+            </div>
+          {% endif %}
+        </div>
       {% else %}
         <span class="product-page__visual-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"><line x1="16.5" y1="9.4" x2="7.5" y2="4.21"/><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
@@ -112,5 +132,25 @@
       var addBtn = document.querySelector('[data-add-to-cart]');
       if (addBtn) addBtn.dataset.qty = input.value;
     });
+  });
+
+  /* Carousel */
+  document.querySelectorAll('[data-carousel]').forEach(function (el) {
+    var track = el.querySelector('[data-carousel-track]');
+    var slides = track.querySelectorAll('.product-carousel__slide');
+    var dots = el.querySelectorAll('[data-carousel-dot]');
+    var prev = el.querySelector('[data-carousel-prev]');
+    var next = el.querySelector('[data-carousel-next]');
+    var current = 0;
+
+    function goTo(i) {
+      current = Math.max(0, Math.min(i, slides.length - 1));
+      track.scrollTo({ left: current * track.offsetWidth, behavior: 'smooth' });
+      dots.forEach(function (d, idx) { d.classList.toggle('product-carousel__dot--active', idx === current); });
+    }
+
+    if (prev) prev.addEventListener('click', function () { goTo(current - 1); });
+    if (next) next.addEventListener('click', function () { goTo(current + 1); });
+    dots.forEach(function (d) { d.addEventListener('click', function () { goTo(parseInt(d.dataset.carouselDot)); }); });
   });
 </script>

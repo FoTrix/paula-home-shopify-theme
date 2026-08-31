@@ -9,7 +9,7 @@
     <div class="collection-hero__row">
       <div>
         <h1 class="collection-hero__title">Resultados para &ldquo;{{ search.terms | escape }}&rdquo;</h1>
-        <p class="collection-hero__count">{{ search.results_count }} productos</p>
+        <p class="collection-hero__count" data-search-count>{{ search.results_count }} productos</p>
       </div>
     </div>
   </div>
@@ -19,28 +19,54 @@
   <div class="listing__results listing__results--full">
     {% if search.performed %}
       {% paginate search.results by 24 %}
-        {% if search.results_count > 0 %}
-          <div class="featured-products__grid listing__grid">
-            {% for item in search.results %}
-              {% if item.object_type == 'product' %}
+        <div class="featured-products__grid listing__grid" data-search-results>
+          {% for item in search.results %}
+            {% if item.object_type == 'product' %}
+              <div data-sku="{{ item.variants.first.sku | escape }}">
                 {% render 'product-card', product: item %}
-              {% endif %}
-            {% endfor %}
-          </div>
-          {% if paginate.pages > 1 %}
-            <div class="pagination">
-              {% if paginate.previous %}<a href="{{ paginate.previous.url }}" class="pagination__btn">&lsaquo;</a>{% endif %}
-              <span class="pagination__label">Página {{ paginate.current_page }} de {{ paginate.pages }}</span>
-              {% if paginate.next %}<a href="{{ paginate.next.url }}" class="pagination__btn">&rsaquo;</a>{% endif %}
-            </div>
-          {% endif %}
-        {% else %}
-          <div class="listing__empty">
-            <p>No encontramos productos para &ldquo;{{ search.terms | escape }}&rdquo;.</p>
-            <a href="{{ routes.all_products_collection_url }}" class="btn-primary">Ver todo el catálogo</a>
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+        {% if paginate.pages > 1 %}
+          <div class="pagination">
+            {% if paginate.previous %}<a href="{{ paginate.previous.url }}" class="pagination__btn">&lsaquo;</a>{% endif %}
+            <span class="pagination__label">Página {{ paginate.current_page }} de {{ paginate.pages }}</span>
+            {% if paginate.next %}<a href="{{ paginate.next.url }}" class="pagination__btn">&rsaquo;</a>{% endif %}
           </div>
         {% endif %}
+        <div class="listing__empty" data-search-empty style="display:none;">
+          <p>No encontramos productos para &ldquo;{{ search.terms | escape }}&rdquo;.</p>
+          <a href="{{ routes.all_products_collection_url }}" class="btn-primary">Ver todo el catálogo</a>
+        </div>
       {% endpaginate %}
     {% endif %}
   </div>
 </div>
+
+<script>
+(function () {
+  var query = {{ search.terms | json }}.toLowerCase();
+  if (!query) return;
+  /* SKU filter: hide non-matching cards if query looks like a SKU */
+  if (/^\d/.test(query)) {
+    visible = 0;
+    cards.forEach(function (card) {
+      var sku = (card.getAttribute('data-sku') || '').toLowerCase();
+      if (sku && sku.indexOf(query) !== -1) {
+        card.style.display = '';
+        visible++;
+      } else {
+        card.style.display = 'none';
+      }
+    });
+    var countEl = document.querySelector('[data-search-count]');
+    if (countEl) countEl.textContent = visible + ' producto' + (visible !== 1 ? 's' : '');
+    var emptyEl = document.querySelector('[data-search-empty]');
+    if (visible === 0 && emptyEl) {
+      document.querySelector('[data-search-results]').style.display = 'none';
+      emptyEl.style.display = '';
+    }
+  }
+})();
+</script>
