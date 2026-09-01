@@ -63,7 +63,7 @@
           <div><p class="pickup-map__label">Horario</p><p>Lun a Vie · 09:00 – 18:30</p><p>Sábado · 10:00 – 14:00</p></div>
         </li>
         <li>
-          <div><p class="pickup-map__label">Teléfono</p><p>+56 9 0000 0000</p></div>
+          <div><p class="pickup-map__label">Teléfono</p><p>{{ section.settings.phone | default: shop.phone }}</p></div>
         </li>
       </ul>
       <a href="https://www.google.com/maps/dir/?api=1&destination={{ lat }},{{ lon }}" target="_blank" rel="noreferrer" class="btn-primary">Cómo llegar</a>

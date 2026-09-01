@@ -1,0 +1,19 @@
+{% comment %}
+  product-gradient.liquid
+  Generates a deterministic gradient from SKU/title for product visuals.
+  Sets: gradient_from, gradient_to
+  Param: product (required)
+{% endcomment %}
+
+{% assign sku_chars = product.variants.first.sku | default: product.title %}
+{% assign tone_index = 0 %}
+{% for char in sku_chars %}
+  {% assign tone_index = tone_index | plus: 1 %}
+{% endfor %}
+{% assign tone_mod = tone_index | modulo: 4 %}
+{% case tone_mod %}
+  {% when 0 %}{% assign gradient_from = '#efe7db' %}{% assign gradient_to = '#e3d5c4' %}
+  {% when 1 %}{% assign gradient_from = '#eee6dc' %}{% assign gradient_to = '#ddcdb9' %}
+  {% when 2 %}{% assign gradient_from = '#f0ece4' %}{% assign gradient_to = '#e0d3c2' %}
+  {% when 3 %}{% assign gradient_from = '#ece3d6' %}{% assign gradient_to = '#d9c8b4' %}
+{% endcase %}

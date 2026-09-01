@@ -321,12 +321,58 @@
   };
 
   /* ========================================
+     CAROUSEL (product pages)
+     ======================================== */
+  const Carousel = {
+    init() {
+      document.querySelectorAll('[data-carousel]').forEach(el => {
+        const track = el.querySelector('[data-carousel-track]');
+        const slides = track.querySelectorAll('.product-carousel__slide');
+        const dots = el.querySelectorAll('[data-carousel-dot]');
+        const prev = el.querySelector('[data-carousel-prev]');
+        const next = el.querySelector('[data-carousel-next]');
+        let current = 0;
+
+        const goTo = (i) => {
+          current = Math.max(0, Math.min(i, slides.length - 1));
+          track.scrollTo({ left: current * track.offsetWidth, behavior: 'smooth' });
+          dots.forEach((d, idx) => d.classList.toggle('product-carousel__dot--active', idx === current));
+        };
+
+        if (prev) prev.addEventListener('click', () => goTo(current - 1));
+        if (next) next.addEventListener('click', () => goTo(current + 1));
+        dots.forEach(d => d.addEventListener('click', () => goTo(parseInt(d.dataset.carouselDot))));
+      });
+    }
+  };
+
+  /* ========================================
+     QTY PICKER (product pages)
+     ======================================== */
+  const QtyPicker = {
+    init() {
+      document.querySelectorAll('[data-qty-minus], [data-qty-plus]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const input = btn.closest('.qty-picker')?.querySelector('[data-qty-input]');
+          if (!input) return;
+          const delta = btn.hasAttribute('data-qty-plus') ? 1 : -1;
+          input.value = Math.max(1, (parseInt(input.value, 10) || 1) + delta);
+          const addBtn = btn.closest('form')?.querySelector('[data-add-to-cart]');
+          if (addBtn) addBtn.dataset.qty = input.value;
+        });
+      });
+    }
+  };
+
+  /* ========================================
      INITIALIZE
      ======================================== */
   document.addEventListener('DOMContentLoaded', () => {
     Cart.init();
     MobileNav.init();
     HeaderSearch.init();
+    Carousel.init();
+    QtyPicker.init();
   });
 
 })();
